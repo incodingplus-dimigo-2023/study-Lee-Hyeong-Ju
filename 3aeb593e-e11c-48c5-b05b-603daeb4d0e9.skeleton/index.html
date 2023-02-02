@@ -74,6 +74,7 @@
         const createBall = () => {
             for(let way of ways){
                 const div = document.createElement('div');
+                con.appendChild(div);
                 const ball = {
                     "div" : div,
                     "speed" : speed,
@@ -82,12 +83,16 @@
                     "dir" : 0
                 } // 객체 정보 추가
                 // div도 ball 객체에 속성으로 추가하기
+                balls.push(ball);
             }
             render();
         }
 
         const render = () => {
             // balls를 렌더링하는 함수
+            for (let i in balls) {
+                balls[i]["div"].style.backgroundColor = `rgb(${balls[i]["color"][0]}, ${balls[i]["color"][1]}, ${balls[i]["color"][2]})`;
+            }
         };
 
         const speedUpdate = (d) => {
