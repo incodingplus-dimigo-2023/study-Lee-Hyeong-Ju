@@ -1,2 +1,5 @@
-<h1>Welcome to SvelteKit</h1>
-<p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p>
+<script>
+    let name = "이형주";
+</script>
+
+<h1>Svelte <a href="/apple">to apple</a></h1>
