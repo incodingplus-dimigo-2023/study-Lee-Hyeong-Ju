@@ -74,10 +74,10 @@
         const createBall = () => {
             for(let way of ways){
                 const div = document.createElement('div');
+                div.classList.add('ball');
                 con.appendChild(div);
                 const ball = {
                     "div" : div,
-                    "speed" : speed,
                     "color" : [Math.floor(Math.random() * 255), Math.floor(Math.random() * 255), Math.floor(Math.random() * 255)],
                     "pos" : way,
                     "dir" : 0
@@ -86,17 +86,23 @@
                 balls.push(ball);
             }
             render();
-        }
+        };
 
         const render = () => {
             // balls를 렌더링하는 함수
             for (let i in balls) {
-                balls[i]["div"].style.backgroundColor = `rgb(${balls[i]["color"][0]}, ${balls[i]["color"][1]}, ${balls[i]["color"][2]})`;
+                let ball = balls[i];
+                ball["dir"] = Math.random() * 2 * Math.PI;
+                ball["div"].style.backgroundColor = `rgb(${ball["color"][0]}, ${ball["color"][1]}, ${ball["color"][2]})`;
+                ball["div"].style.transform = `translate(calc(${ball["pos"][0] * 100 - (Math.cos(ball["dir"]) * Math.random() * speed)}px - 50%), calc(${ball["pos"][1] * 100 - (Math.sin(ball["dir"]) * Math.random() * speed)}px - 50%))`;
             }
+            requestAnimationFrame(render);
         };
 
         const speedUpdate = (d) => {
             // speed 를 d 만큼 증가
+            speed += Number(d);
+            speed = Math.max(0, speed);
             cur.innerHTML = speed.toFixed(1);
         };
 
@@ -105,6 +111,7 @@
 
         con.onclick = (e) => {
             // 속도 조절
+            if (e.target.dataset.d) speedUpdate(e.target.dataset.d);
         };
     </script>
 </body>
