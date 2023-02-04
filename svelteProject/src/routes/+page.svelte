@@ -1,5 +1,19 @@
 <script>
-    let name = "이형주";
+    let [x, y] = [0, 0];
+    let keys = {
+        ArrowUp: [0, [0, 1]],
+        ArrowDown: [0, [0, -1]],
+        ArrowRight: [0, [1, 0]],
+        ArrowLeft: [0, [-1, 0]]
+    }
+
+    document.addEventListener('keydown', (e) => {
+    })
 </script>
 
-<h1>Svelte <a href="/apple">to apple</a></h1>
+<div class="player"></div>
+<style>
+    div.player {
+        transform: translate();
+    }
+</style>
