@@ -29,15 +29,16 @@ const update = () => {
     res.innerHTML = '';
     graph.bars = [];
     graph.max = 0;
-    for (let i = dices.length; i <= dices.length * 6; i++) {
+    for (let i = 1; i <= dices.length * 6; i++) {
         // 색은 랜덤하게
         // bars 에는 key가 i, value는 {div, num} 이 있도록 한다.
         // div는 태그, num은 나온 횟수이다.
         let div = document.createElement('div');
         div.style.backgroundColor = `rgb(${Math.random() * 255}, ${Math.random() * 255}, ${Math.random() * 255})`;
+        div.dataset.num = i;
         let bar = {
             div,
-            num: i
+            num: 0
         };
         res.appendChild(div);
         graph.bars.push(bar);
@@ -64,6 +65,7 @@ const deleteDice = () => {
     // dices에서 제거하는 코드
     // imgContainer에서 제거하는 코드
     dices.pop().div.remove();
+    update();
 };
 
 const render = () => {
@@ -89,9 +91,14 @@ const render = () => {
         // 높이는 (100% - 50px) * num / max + 50px 이다.
         graph.bars[add].num++;
         graph.max = Math.max(graph.max, graph.bars[add].num);
+
+        let max = 0;
         
         for (let i = 0; i < graph.bars.length; i++) {
-            graph.bars[i]
+            max = Math.max(max, graph.bars[i].num);
+        }
+        for (let i = 0; i < graph.bars.length; i++) {
+            graph.bars[i].div.style.height = `calc(((100% - 50px) * ${graph.bars[i].num}) / ${max} + 50px)`;
         }
     }
     requestAnimationFrame(render);
